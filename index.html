@@ -1,41 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tahira Ishaq - Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tahira Ishaq — Computer Science student, creative thinker, and technology enthusiast." />
+  <title>Tahira Ishaq | CS Student & Creative Thinker</title>
   <style>
-    body {font-family: Arial; margin:0; background:#fff;}
-    header {background:#4CAF50; color:white; text-align:center; padding:50px;}
-    section {padding:40px; max-width:900px; margin:auto;}
-    h2 {color:#4CAF50; border-bottom:2px solid #4CAF50; padding-bottom:10px;}
-    .gray {background:#f5f5f5;}
+    :root {
+      --bg: #0b1020;
+      --panel: #111a2e;
+      --panel-2: #17233b;
+      --text: #edf2ff;
+      --muted: #a8b4cc;
+      --accent: #72e0c0;
+      --accent-2: #91a7ff;
+      --line: rgba(255,255,255,.1);
+      --shadow: 0 18px 50px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 80% 0%, #1b2b4b 0, transparent 34%), var(--bg);
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1100px, calc(100% - 40px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(11,16,32,.82);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      min-height: 72px; display: flex;
+      align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand { font-weight: 800; letter-spacing: .04em; font-size: 1.1rem; }
+    .brand span { color: var(--accent); }
+    .nav-links {
+      display: flex; align-items: center; gap: 24px;
+      color: var(--muted); font-size: .94rem;
+    }
+    .nav-links a:hover, .nav-links a:focus { color: var(--accent); }
+    .menu-btn {
+      display: none; background: none; border: 1px solid var(--line);
+      color: var(--text); padding: 8px 12px; border-radius: 10px;
+    }
+    .hero {
+      min-height: 690px; display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center; gap: 50px; padding: 90px 0;
+    }
+    .eyebrow {
+      color: var(--accent); text-transform: uppercase;
+      letter-spacing: .18em; font-size: .78rem; font-weight: 800;
+    }
+    h1 {
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      line-height: .98; letter-spacing: -.06em; margin: 18px 0;
+    }
+    h1 span { color: var(--accent); }
+    .headline {
+      font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+      color: #d7e1f5; font-weight: 600;
+    }
+    .intro { color: var(--muted); max-width: 600px; margin: 18px 0 30px; }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 20px; border-radius: 12px; font-weight: 750;
+      border: 1px solid var(--line); transition: .2s;
+    }
+    .btn.primary { background: var(--accent); color: #07131a; border-color: var(--accent); }
+    .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .hero-card {
+      background: linear-gradient(145deg, rgba(114,224,192,.15), rgba(145,167,255,.1));
+      border: 1px solid var(--line); border-radius: 28px;
+      padding: 34px; box-shadow: var(--shadow);
+    }
+    .avatar {
+      width: 118px; height: 118px; border-radius: 28px;
+      display: grid; place-items: center; color: #07131a;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-size: 2.3rem; font-weight: 900; margin-bottom: 24px;
+    }
+    .hero-card h2 { margin: 0 0 8px; font-size: 1.35rem; }
+    .hero-card p { color: var(--muted); margin: 0; }
+    .status {
+      display: inline-flex; gap: 9px; align-items: center;
+      color: var(--accent); font-size: .88rem; margin-top: 24px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 14px var(--accent);
+    }
+    section { padding: 86px 0; scroll-margin-top: 70px; }
+    .section-head { margin-bottom: 34px; }
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -.04em; margin: 8px 0;
+    }
+    .section-head p { color: var(--muted); margin: 0; max-width: 650px; }
+    .about-grid, .contact-grid {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px;
+    }
+    .panel {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 20px; padding: 28px;
+    }
+    .panel p { color: var(--muted); margin-top: 0; }
+    .facts { display: grid; gap: 14px; }
+    .fact {
+      display: flex; justify-content: space-between; gap: 18px;
+      border-bottom: 1px solid var(--line); padding-bottom: 12px;
+    }
+    .fact:last-child { border: 0; padding-bottom: 0; }
+    .fact span:first-child { color: var(--muted); }
+    .fact strong { text-align: right; }
+    .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .skill-card {
+      background: var(--panel); border: 1px solid var(--line);
+      padding: 24px; border-radius: 18px;
+    }
+    .skill-card h3 { margin: 0 0 12px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tag {
+      color: #dce6fa; background: var(--panel-2);
+      border: 1px solid var(--line); padding: 6px 11px;
+      border-radius: 999px; font-size: .86rem;
+    }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project {
+      overflow: hidden; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 20px;
+    }
+    .project-art {
+      min-height: 155px; display: grid; place-items: center;
+      background: linear-gradient(135deg, rgba(114,224,192,.2), rgba(145,167,255,.22));
+      font-size: 2.4rem;
+    }
+    .project-body { padding: 22px; }
+    .project-body h3 { margin: 0 0 8px; }
+    .project-body p { color: var(--muted); font-size: .94rem; min-height: 74px; }
+    .project-link { color: var(--accent); font-weight: 700; font-size: .9rem; }
+    .contact-card { display: flex; flex-direction: column; gap: 12px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 12px;
+      color: var(--muted); overflow-wrap: anywhere;
+    }
+    .contact-item strong { color: var(--text); }
+    footer {
+      border-top: 1px solid var(--line); padding: 25px 0;
+      color: var(--muted); text-align: center; font-size: .9rem;
+    }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 75px 0; }
+      .hero-card { max-width: 520px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .skills, .project-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 30px, 1100px); }
+      .menu-btn { display: inline-block; }
+      .nav-links {
+        display: none; position: absolute; top: 72px; left: 0; right: 0;
+        padding: 18px 24px; background: #0e1628;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column; align-items: flex-start;
+      }
+      .nav-links.open { display: flex; }
+      .skills, .project-grid { grid-template-columns: 1fr; }
+      section { padding: 65px 0; }
+      .fact { flex-direction: column; gap: 2px; }
+      .fact strong { text-align: left; }
+    }
   </style>
 </head>
 <body>
+  <header>
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#home">TAHIRA<span>.</span>ISHAQ</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-<header>
-  <h1>I'm Tahira Ishaq</h1>
-  <p>Computer Science Student | University of Kamalia</p>
-  <p>Welcome to My Portfolio</p>
-</header>
+  <main>
+    <section class="wrap hero" id="home">
+      <div>
+        <div class="eyebrow">Hello, welcome to my portfolio</div>
+        <h1>I'm Tahira<br><span>Ishaq.</span></h1>
+        <div class="headline">
+          Computer Science Student | Creative Thinker | Tech Enthusiast
+        </div>
+        <p class="intro">
+          I’m a BS Computer Science student who enjoys learning new things,
+          exploring technology, and expressing creativity through digital
+          projects. I love discovering new ideas, improving my skills, and
+          creating useful things.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#projects">Explore my work</a>
+          <a class="btn" href="#contact">Get in touch</a>
+        </div>
+      </div>
 
-<section>
-  <h2>About Me</h2>
-  <p>Hello! I'm Tahira, a CS student. I love Web Development and Assembly Language.</p>
-</section>
+      <aside class="hero-card">
+        <div class="avatar">TI</div>
+        <h2>Creative Mind. Curious Soul.</h2>
+        <p>Always learning, exploring new ideas, and finding inspiration in little things.</p>
+        <div class="status">
+          <span class="dot"></span> Always ready to learn something new
+        </div>
+      </aside>
+    </section>
 
-<section class="gray">
-  <h2>COAL Assignment Solutions</h2>
-  
-  <h3>Q1. Computer Diagram + ALU & CU</h3>
-  <p><b>ALU:</b> Arithmetic Logic Unit - Addition, Subtraction, AND, OR, XOR karta hai</p>
-  <p><b>Control Unit:</b> Saare operations ko control karta hai. Instruction fetch, decode aur execute karwata hai</p>
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">A little about me</div>
+          <h2>About Me</h2>
+          <p>My background, interests, and the things that inspire me.</p>
+        </div>
+        <div class="about-grid">
+          <div class="panel">
+            <p>
+              I’m pursuing a <strong>BS in Computer Science</strong> and enjoy
+              exploring the world of technology and creativity. I love learning
+              new skills, discovering digital tools, and working on interesting
+              projects.
+            </p>
+            <p>
+              Apart from my studies, I enjoy creative designing, photography,
+              listening to music, and exploring new ideas. My goal is to keep
+              learning, grow my knowledge, and build a successful future in
+              the field of technology.
+            </p>
+          </div>
+          <div class="panel facts">
+            <div class="fact"><span>Education</span><strong>BS Computer Science</strong></div>
+            <div class="fact"><span>Interests</span><strong>Technology & Creativity</strong></div>
+            <div class="fact"><span>Hobbies</span><strong>Designing, Music & Photography</strong></div>
+            <div class="fact"><span>Personal Goal</span><strong>Continuous Learning & Growth</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <h3>Q2. Conditional Transfer & Bus</h3>
-  <p><b>Conditional Transfer:</b> Condition true hone par jump hota hai. Ex: JNZ, JC</p>
-  <p><b>Bus Width:</b> Data bus ki size. 8-bit, 16-bit, 32-bit</p>
-  <p><b>MUX:</b> Multiple inputs me se 1 select karta hai using selection lines</p>
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">What I work with</div>
+          <h2>Skills & Tools</h2>
+          <p>Some of the technologies and tools I am learning and exploring.</p>
+        </div>
+        <div class="skills">
+          <article class="skill-card">
+            <h3>Programming</h3>
+            <div class="tags">
+              <span class="tag">C++</span>
+              <span class="tag">Python</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+            </div>
+          </article>
+          <article class="skill-card">
+            <h3>Tools</h3>
+            <div class="tags">
+              <span class="tag">VS Code</span>
+              <span class="tag">Git</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">Chrome DevTools</span>
+            </div>
+          </article>
+          <article class="skill-card">
+            <h3>Core Concepts</h3>
+            <div class="tags">
+              <span class="tag">Problem Solving</span>
+              <span class="tag">OOP Basics</span>
+              <span class="tag">Responsive Design</span>
+              <span class="tag">AI-assisted Coding</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <h3>Q3. Arithmetic & Logic</h3>
-  <p><b>Addition:</b> 1010 + 0110 = 10000</p>
-  <p><b>2's Complement:</b> Num
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Selected work</div>
+          <h2>Projects</h2>
+          <p>A few projects that reflect my learning and creativity.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project">
+            <div class="project-art" aria-hidden="true">⌨️</div>
+            <div class="project-body">
+              <h3>Programming Practice</h3>
+              <p>A collection of beginner programming exercises focused on logic, loops, arrays, and problem-solving.</p>
+              <a class="project-link" href="https://github.com/" target="_blank" rel="noopener">Add your GitHub link ↗</a>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project-art" aria-hidden="true">🌐</div>
+            <div class="project-body">
+              <h3>Personal Portfolio</h3>
+              <p>A responsive personal website introducing my background, skills, interests, and contact information.</p>
+              <a class="project-link" href="#home">View this website ↑</a>
+            </div>
+          </article>
+          <article class="project">
+            <div class="project-art" aria-hidden="true">💡</div>
+            <div class="project-body">
+              <h3>Coming Soon</h3>
+              <p>I'm always exploring new ideas, learning new things, and looking forward to creating more projects.</p>
+              <a class="project-link" href="#contact">Ask me about it →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Let's connect</div>
+          <h2>Contact Me</h2>
+          <p>Have an idea or opportunity? I’d be happy to hear from you.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Get in touch</h3>
+            <p>Feel free to contact me for collaboration, learning opportunities, or interesting projects.</p>
+            <a class="btn primary" href="mailto:adnanishq@gmail.com">Email Tahira Ishaq</a>
+          </div>
+          <div class="panel contact-card">
+            <div class="contact-item">
+              ✉️ <span><strong>Email</strong><br><a href="mailto:adnanishq@gmail.com">adnanishq@gmail.com</a></span>
+            </div>
+            <div class="contact-item">
+              💻 <span><strong>GitHub</strong><br><a href="https://github.com/" target="_blank" rel="noopener">Add your GitHub profile URL</a></span>
+            </div>
+            <div class="contact-item">
+              🔗 <span><strong>LinkedIn</strong><br><a href="https://www.linkedin.com/" target="_blank" rel="noopener">Add your LinkedIn profile URL</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="year"></span> Tahira Ishaq. Built with HTML, CSS & JavaScript.</div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
